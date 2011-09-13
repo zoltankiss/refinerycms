@@ -108,4 +108,7 @@ gem 'jquery-rails'
 
 # Add i18n support (optional, you can remove this if you really want to).
 gem 'refinerycms-i18n',           '~> 2.0.0', :git => 'git://github.com/parndt/refinerycms-i18n'
+
+# Add WYMeditor as the visual editor.
+gem 'refinerycms-wymeditor',      '~> 2.0.0', :path => '.'
 # END USER DEFINED

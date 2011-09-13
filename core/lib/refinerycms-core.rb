@@ -85,7 +85,7 @@ module Refinery
         ::Refinery::Plugin.register do |plugin|
           plugin.pathname = root
           plugin.name = 'refinery_core'
-          plugin.class_name = 'RefineryEngine'
+          plugin.class_name = 'RefineryCoreEngine'
           plugin.version = ::Refinery.version
           plugin.hide_from_menu = true
           plugin.always_allow_access = true
@@ -123,8 +123,8 @@ module Refinery
         end
       end
 
-      initializer "refinery.assets.precompile" do |app|
-         app.config.assets.precompile += ["refinery/*", "refinery/icons/*", "wymeditor/lang/*", "wymeditor/skins/refinery/*", "wymeditor/skins/refinery/**/*"]
+      initializer "refinery.core.assets.precompile" do |app|
+         app.config.assets.precompile += ["refinery/*", "refinery/icons/*"]
       end
     end
   end

@@ -71,6 +71,76 @@ PATH
       refinerycms-core (= 2.0.0)
       rspec-instafail
       rspec-rails (= 2.6.1)
+    refinerycms-wymeditor (2.0.0)
+      refinerycms-core (= 2.0.0)
+
+PATH
+  remote: .
+  specs:
+    refinerycms (2.0.0)
+      bundler (~> 1.0)
+      refinerycms-authentication (= 2.0.0)
+      refinerycms-base (= 2.0.0)
+      refinerycms-core (= 2.0.0)
+      refinerycms-dashboard (= 2.0.0)
+      refinerycms-images (= 2.0.0)
+      refinerycms-pages (= 2.0.0)
+      refinerycms-resources (= 2.0.0)
+      refinerycms-settings (= 2.0.0)
+    refinerycms-authentication (2.0.0)
+      devise (~> 1.4.0)
+      friendly_id_globalize3 (~> 3.2.1)
+      refinerycms-core (= 2.0.0)
+    refinerycms-base (2.0.0)
+    refinerycms-core (2.0.0)
+      acts_as_indexed (~> 0.7)
+      awesome_nested_set (~> 2.0)
+      coffee-rails (~> 3.1.0)
+      friendly_id_globalize3 (~> 3.2.1)
+      globalize3 (~> 0.2.0.beta3)
+      jquery-rails
+      rails (~> 3.1.0)
+      refinerycms-base (= 2.0.0)
+      refinerycms-settings (= 2.0.0)
+      sass-rails (~> 3.1.0)
+      truncate_html (~> 0.5)
+      uglifier
+      will_paginate (~> 3.0)
+    refinerycms-dashboard (2.0.0)
+      refinerycms-core (= 2.0.0)
+    refinerycms-images (2.0.0)
+      activerecord (~> 3.1.0)
+      dragonfly (~> 0.9.8)
+      rack-cache (>= 0.5.3)
+      refinerycms-core (= 2.0.0)
+    refinerycms-pages (2.0.0)
+      activerecord (~> 3.1.0)
+      awesome_nested_set (~> 2.0)
+      friendly_id_globalize3 (~> 3.2.1)
+      refinerycms-core (= 2.0.0)
+      seo_meta (>= 1.2.0.rc2)
+    refinerycms-resources (2.0.0)
+      activerecord (~> 3.1.0)
+      dragonfly (~> 0.9.8)
+      rack-cache (>= 0.5.3)
+      refinerycms-core (= 2.0.0)
+    refinerycms-settings (2.0.0)
+      activerecord (~> 3.1.0)
+      refinerycms-base (= 2.0.0)
+    refinerycms-testing (2.0.0)
+      capybara (~> 1.0.0)
+      database_cleaner
+      factory_girl_rails (~> 1.2.0)
+      fuubar
+      guard-rspec (~> 0.4.2)
+      json_pure
+      launchy
+      rack-test (>= 0.5.6)
+      refinerycms-core (= 2.0.0)
+      rspec-instafail
+      rspec-rails (= 2.6.1)
+    refinerycms-wymeditor (2.0.0)
+      refinerycms-core (= 2.0.0)
 
 GEM
   remote: http://rubygems.org/
@@ -290,6 +360,7 @@ DEPENDENCIES
   refinerycms!
   refinerycms-i18n (~> 2.0.0)!
   refinerycms-testing (~> 2.0.0)
+  refinerycms-wymeditor (~> 2.0.0)!
   sass-rails (~> 3.1.0)
   simplecov
   spork (= 0.9.0.rc9)
