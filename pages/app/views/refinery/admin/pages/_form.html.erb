@@ -50,7 +50,7 @@
         var prev_target = form.attr('target');
         form.attr({
           'action': '<%= @page.persisted? ? refinery.pages_admin_preview_page_path(@page.nested_url) : refinery.pages_admin_preview_pages_path %>'
-          , 'target': '_blank'
+          <%= raw %q{, 'target': '_blank'} unless Rails.env.test? %>
         });
         form.submit();
         form.attr({

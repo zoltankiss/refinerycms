@@ -29,6 +29,7 @@ gem 'jruby-openssl', :platform => :jruby
 group :test do
   gem 'refinerycms-testing', '~> 2.1.0.dev'
   gem 'generator_spec', '~> 0.8.7'
+  gem 'poltergeist'
 
   platforms :mswin, :mingw do
     gem 'win32console', '~> 1.3.0'

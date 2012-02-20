@@ -1,20 +1,6 @@
 # encoding: utf-8
 require "spec_helper"
 
-def new_window_should_have_content(content)
-  new_window = page.driver.browser.window_handles.last
-  page.within_window new_window do
-    page.should have_content(content)
-  end
-end
-
-def new_window_should_not_have_content(content)
-  new_window = page.driver.browser.window_handles.last
-  page.within_window new_window do
-    page.should_not have_content(content)
-  end
-end
-
 module Refinery
   module Admin
     describe "Pages" do
@@ -23,7 +9,7 @@ module Refinery
       context "when no pages" do
         it "invites to create one" do
           visit refinery.admin_pages_path
-          page.should have_content(%q{There are no pages yet. Click "Add new page" to add your first page.})
+          page.should have_content(::I18n.t('no_pages_yet', :scope => 'refinery.admin.pages.records'))
         end
       end
 
@@ -203,7 +189,7 @@ module Refinery
             fill_in "Title", :with => "Some changes I'm unsure what they will look like"
             click_button "Preview"
 
-            new_window_should_have_content("Some changes I'm unsure what they will look like")
+            page.should have_content("Some changes I'm unsure what they will look like")
           end
 
           it 'will not show the site bar', :js do
@@ -213,10 +199,10 @@ module Refinery
             fill_in "Title", :with => "Some changes I'm unsure what they will look like"
             click_button "Preview"
 
-            new_window_should_not_have_content(
+            page.should_not have_content(
               ::I18n.t('switch_to_website', :scope => 'refinery.site_bar')
             )
-            new_window_should_not_have_content(
+            page.should_not have_content(
               ::I18n.t('switch_to_website_editor', :scope => 'refinery.site_bar')
             )
           end
@@ -228,7 +214,7 @@ module Refinery
             fill_in "Title", :with => "Some changes I'm unsure what they will look like"
             click_button "Preview"
 
-            new_window_should_have_content("Some changes I'm unsure what they will look like")
+            page.should have_content("Some changes I'm unsure what they will look like")
 
             Page.by_title("Some changes I'm unsure what they will look like").should be_empty
           end
@@ -244,8 +230,8 @@ module Refinery
 
             click_button "Preview"
 
-            new_window_should_have_content("Save this")
-            new_window_should_not_have_content(
+            page.should have_content("Save this")
+            page.should_not have_content(
               ::I18n.t('switch_to_website', :scope => 'refinery.site_bar')
             )
           end
@@ -259,7 +245,7 @@ module Refinery
             fill_in "Title", :with => "My first page"
             click_button "Preview"
 
-            new_window_should_have_content("My first page")
+            page.should have_content("My first page")
 
             Page.count.should == 0
           end
@@ -279,7 +265,7 @@ module Refinery
             fill_in "Title", :with => "Some changes I'm unsure what they will look like"
             click_button "Preview"
 
-            new_window_should_have_content("Some changes I'm unsure what they will look like")
+            page.should have_content("Some changes I'm unsure what they will look like")
           end
         end
       end

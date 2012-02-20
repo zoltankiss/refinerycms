@@ -5,10 +5,9 @@ before_install:
 install:
   - bundle install --without development
 before_script:
-  - "sh -e /etc/init.d/xvfb start"
   - "bundle exec rake refinery:testing:dummy_app > /dev/null"
 script:
-  - "DISPLAY=:99.0 bundle exec rspec ./*/spec"
+  - "bundle exec rspec ./*/spec"
 notifications:
   email: true
   irc:
