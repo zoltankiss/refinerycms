@@ -91,7 +91,7 @@ gem 'jquery-rails', '~> 2.0.0'
 gem 'refinerycms-i18n',           :git => 'git://github.com/parndt/refinerycms-i18n.git'
 
 # Add WYMeditor as the visual editor.
-gem 'refinerycms-wymeditor',      :path =>'/code/refinerycms/refinerycms-wymeditor'#:git => 'git://github.com/parndt/refinerycms-wymeditor.git'
+gem 'refinerycms-wymeditor',      :git => 'git://github.com/parndt/refinerycms-wymeditor.git'
 # END USER DEFINED
 
 # Use unicorn as the web server
