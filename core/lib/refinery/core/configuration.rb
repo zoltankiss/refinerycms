@@ -4,10 +4,10 @@ module Refinery
 
     config_accessor :rescue_not_found, :s3_backend, :base_cache_key, :site_name,
                     :google_analytics_page_code, :authenticity_token_on_frontend,
-                    :dragonfly_secret,
-                    :wymeditor_whitelist_tags, :javascripts, :stylesheets,
+                    :dragonfly_secret, :javascripts, :stylesheets, :user_class
+                    :wymeditor_whitelist_tags, :force_ssl, :backend_route,
                     :s3_bucket_name, :s3_region, :s3_access_key_id,
-                    :s3_secret_access_key, :force_ssl, :backend_route
+                    :s3_secret_access_key
 
     self.rescue_not_found = false
     self.s3_backend = false
@@ -25,6 +25,7 @@ module Refinery
     self.s3_secret_access_key = ENV['S3_SECRET']
     self.force_ssl = false
     self.backend_route = "refinery"
+    self.user_class = nil
 
     def config.register_javascript(name)
       self.javascripts << name
