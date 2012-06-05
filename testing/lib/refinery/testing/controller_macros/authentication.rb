@@ -3,7 +3,7 @@ module Refinery
     module ControllerMacros
       module Authentication
         def self.extended(base)
-          base.send :include, Devise::TestHelpers
+          base.send(:include, Devise::TestHelpers) if defined?(Devise::TestHelpers)
         end
 
         def refinery_login_with(*roles)
@@ -44,8 +44,13 @@ module Refinery
 
         def factory_user(factory)
           let(:logged_in_user) { FactoryGirl.create factory }
+<<<<<<< HEAD
           before do
             @request.env["devise.mapping"] = Devise.mappings[:admin]
+=======
+          before(:each) do
+            @request.env["devise.mapping"] = Devise.mappings[:admin] if defined?(Devise)
+>>>>>>> Don't force a dependency on refinerycms-authentication.
             sign_in logged_in_user
           end
         end
