@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gemspec
 
+gem 'refinerycms-authentication', :path => '.'
 # Add i18n support.
 gem 'refinerycms-i18n', '~> 2.1.0.dev', :git => 'git://github.com/refinery/refinerycms-i18n.git'
 
