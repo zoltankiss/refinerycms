@@ -1,4 +1,4 @@
-Refinery::Core::Engine.routes.draw do
+Rails.application.routes.draw do
   begin
     require 'devise'
     devise_for :refinery_user,
@@ -12,10 +12,10 @@ Refinery::Core::Engine.routes.draw do
 
     # Override Devise's other routes for convenience methods.
     devise_scope :refinery_user do
-      get '/refinery/login', :to => "sessions#new", :as => :login
-      get '/refinery/logout', :to => "sessions#destroy", :as => :logout
-      get '/refinery/users/register' => 'users#new', :as => :signup
-      post '/refinery/users/register' => 'users#create', :as => :signup
+      get '/refinery/login', :to => "sessions#new", :as => :sign_in
+      get '/refinery/logout', :to => "sessions#destroy", :as => :sign_out
+      get '/refinery/users/register' => 'users#new', :as => :sign_up
+      post '/refinery/users/register' => 'users#create', :as => :sign_up
     end
   rescue RuntimeError => exc
     if exc.message =~ /ORM/

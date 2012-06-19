@@ -1,0 +1,41 @@
+Refinery::Core.configure do |config|
+  config.user_class = 'Refinery::User'
+end
+
+module Refinery
+  module AuthenticationHelper
+    def self.included(base)
+      base.class_eval do
+        helper_method :refinery_user,
+                      :refinery_sign_in_path,
+                      :refinery_sign_out_path,
+                      :refinery_sign_up_path,
+                      :refinery_users_exist?
+      end
+    end
+
+    def refinery_user
+      current_refinery_user
+    end
+
+    def refinery_user?
+      refinery_user && refinery_user.has_refinery_role?
+    end
+
+    def refinery_sign_in_path
+      main_app.sign_in_path
+    end
+
+    def refinery_sign_out_path
+      main_app.sign_out_path
+    end
+
+    def refinery_sign_up_path
+      main_app.sign_up_path
+    end
+
+    def refinery_users_exist?
+      Refinery::Role[:refinery].users.any?
+    end
+  end
+end

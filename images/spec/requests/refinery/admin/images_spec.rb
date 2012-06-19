@@ -3,7 +3,7 @@ require "spec_helper"
 module Refinery
   module Admin
     describe "Images" do
-      refinery_login_with :refinery_user
+      refinery_login_with :refinery
 
       context "when no images" do
         it "invites to add one" do

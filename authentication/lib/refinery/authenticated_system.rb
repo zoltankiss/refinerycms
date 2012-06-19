@@ -56,7 +56,7 @@ module Refinery
     end
 
     def refinery_user?
-      refinery_user_signed_in? && current_refinery_user.has_role?(:refinery)
+      refinery_user_signed_in? && current_user.has_role?(:refinery)
     end
 
     protected :store_location, :pop_stored_location, :redirect_back_or_default,
@@ -64,7 +64,7 @@ module Refinery
 
     def self.included(base)
       if base.respond_to? :helper_method
-        base.send :helper_method, :current_refinery_user, :current_user_session,
+        base.send :helper_method, :current_user, :current_user_session,
                                   :refinery_user_signed_in?, :refinery_user?
       end
     end

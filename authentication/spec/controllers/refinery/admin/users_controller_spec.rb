@@ -53,7 +53,7 @@ describe Refinery::Admin::UsersController do
 
   describe "#edit" do
     it "renders the edit template" do
-      get :edit, :id => logged_in_user.id
+      get :edit, :id => refinery_user.id
       response.should be_success
       response.should render_template("refinery/admin/users/edit")
     end
@@ -71,8 +71,8 @@ describe Refinery::Admin::UsersController do
 
     context "when specifying plugins" do
       it "won't allow to remove 'Users' plugin from self" do
-        Refinery::Core.user_class.should_receive(:find).at_least(1).times{ logged_in_user }
-        put "update", :id => logged_in_user.id.to_s, :user => {:plugins => ["some plugin"]}
+        Refinery::Core.user_class.should_receive(:find).at_least(1).times{ refinery_user }
+        put "update", :id => refinery_user.id.to_s, :user => {:plugins => ["some plugin"]}
 
         flash[:error].should eq("You cannot remove the 'Users' plugin from the currently logged in account.")
       end

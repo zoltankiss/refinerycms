@@ -36,6 +36,7 @@ module Refinery
   autoload :DummyGenerator, 'generators/refinery/dummy/dummy_generator'
   autoload :CoreGenerator, 'generators/refinery/core/core_generator'
   autoload :EngineGenerator, 'generators/refinery/engine/engine_generator'
+  autoload :UserGenerator, 'generators/refinery/user/user_generator'
 
   class << self
     @@extensions = []

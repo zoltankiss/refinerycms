@@ -25,6 +25,10 @@ module Refinery
 
     protected
 
+      def authenticate_refinery_user!
+        # TODO remember to implement authenticate_refinery_user!
+      end
+
       def group_by_date(records)
         new_records = []
 
@@ -38,12 +42,12 @@ module Refinery
       end
 
       def restrict_plugins
-        current_length = (plugins = current_refinery_user.authorized_plugins).length
+        current_length = (plugins = refinery_user.authorized_plugins).length
 
         # Superusers get granted access if they don't already have access.
-        if current_refinery_user.has_role?(:superuser)
+        if refinery_user.has_role?(:superuser)
           if (plugins = plugins | ::Refinery::Plugins.registered.names).length > current_length
-            current_refinery_user.plugins = plugins
+            refinery_user.plugins = plugins
           end
         end
 
@@ -54,8 +58,8 @@ module Refinery
         # We need to remove the admin/ section since the path is silent for the
         # namespace.
         path = params[:controller].gsub('admin/', '')
-        unless ::Refinery::Plugins.active.any? {|plugin| path =~ Regexp.new(plugin.menu_match) }
-          logger.warn "'#{current_refinery_user.username}' tried to access '#{path}' but was rejected."
+        if ::Refinery::Plugins.active.none? {|plugin| Regexp.new(plugin.menu_match) === path }
+          logger.warn "'#{refinery_user.username}' tried to access '#{path}' but was rejected."
           error_404
         end
       end

@@ -61,11 +61,11 @@ module Refinery
     end
 
     def current_user_can_view_page?
-      page.live? || current_refinery_user_can_access?("refinery_pages")
+      page.live? || refinery_user_can_access?("refinery_pages")
     end
 
-    def current_refinery_user_can_access?(plugin)
-      refinery_user? && current_refinery_user.authorized_plugins.include?(plugin)
+    def refinery_user_can_access?(plugin)
+      refinery_user? && refinery_user.authorized_plugins.include?(plugin)
     end
 
     def first_live_child

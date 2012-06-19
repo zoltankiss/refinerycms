@@ -11,7 +11,7 @@ module Refinery
                               :password => "123456",
                               :password_confirmation => "123456")
 
-      visit refinery.login_path
+      visit refinery_sign_in_path
     end
 
     it "shows login form" do

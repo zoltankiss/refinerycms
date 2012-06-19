@@ -28,8 +28,8 @@ module Refinery
     self.s3_access_key_id = ENV['S3_KEY']
     self.s3_secret_access_key = ENV['S3_SECRET']
     self.force_ssl = false
-    self.verbose_rack_cache = false
     self.user_class = nil
+    self.verbose_rack_cache = false
 
     def config.register_javascript(name)
       self.javascripts << name
@@ -51,6 +51,17 @@ module Refinery
       def site_name
         ::I18n.t('site_name', :scope => 'refinery.core.config', :default => config.site_name)
       end
+
+      def user_class
+        config.user_class.constantize if config.user_class
+      end
+
+      def user_class_with_guard=(klass)
+        raise "Refinery::Core#user_class must be a String" unless klass.is_a?(String)
+
+        self.user_class_without_guard = klass
+      end
+      alias_method_chain :user_class=, :guard
     end
 
     # wrapper for stylesheet registration

@@ -6,6 +6,7 @@ module Refinery
     helper ApplicationHelper
     helper Refinery::Core::Engine.helpers
     include Refinery::Admin::BaseController
+    include Refinery::AuthenticationHelper
 
   end
 end

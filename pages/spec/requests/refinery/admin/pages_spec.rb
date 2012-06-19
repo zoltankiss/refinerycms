@@ -11,7 +11,7 @@ end
 module Refinery
   module Admin
     describe "Pages" do
-      refinery_login_with :refinery_user
+      refinery_login_with :refinery
 
       context "when no pages" do
         it "invites to create one" do

@@ -9,7 +9,8 @@ module Refinery
                     :just_installed?,
                     :from_dialog?,
                     :admin?,
-                    :login?
+                    :login?,
+                    :refinery_user?
 
       protect_from_forgery # See ActionController::RequestForgeryProtection
 
@@ -19,8 +20,7 @@ module Refinery
 
       send :before_filter, :force_ssl?, :if => :admin?
 
-      send :after_filter, :store_current_location!,
-                          :if => Proc.new {|c| send(:refinery_user?) }
+      send :after_filter, :store_current_location!, :if => :refinery_user?
 
       if Refinery::Core.rescue_not_found
         send :rescue_from, ActiveRecord::RecordNotFound,
@@ -52,7 +52,8 @@ module Refinery
     end
 
     def just_installed?
-      Refinery::Role[:refinery].users.empty?
+      false
+    #   refinery_users_exist?
     end
 
     def local_request?

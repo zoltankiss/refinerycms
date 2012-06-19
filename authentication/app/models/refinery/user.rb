@@ -52,7 +52,7 @@ module Refinery
     def can_delete?(user_to_delete = self)
       user_to_delete.persisted? &&
         !user_to_delete.has_role?(:superuser) &&
-        ::Refinery::Role[:refinery].users.any? &&
+        refinery_users_exist? &&
         id != user_to_delete.id
     end
 
@@ -91,6 +91,14 @@ module Refinery
 
     def to_s
       username.to_s
+    end
+
+    def update_plugin_positions(positions)
+      positions.each_with_index do |plugin_name, index|
+        if plugin = self.plugins.where(:name => plugin_name).first
+          plugin.update_attribute(:position, index)
+        end
+      end
     end
 
     private

@@ -76,11 +76,11 @@ describe "User admin page" do
     it "can only destroy regular users" do
       visit refinery.admin_users_path
       page.should have_selector("a[href='/refinery/users/#{user.username}']")
-      page.should have_no_selector("a[href='/refinery/users/#{logged_in_user.username}']")
+      page.should have_no_selector("a[href='/refinery/users/#{refinery_user.username}']")
 
       click_link "Remove this user"
       page.should have_content("'#{user.username}' was successfully removed.")
-      page.should have_content("#{logged_in_user.username} (#{logged_in_user.email})")
+      page.should have_content("#{refinery_user.username} (#{refinery_user.email})")
     end
   end
 end
