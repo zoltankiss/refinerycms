@@ -390,9 +390,8 @@ module Refinery
           :id => 5,
           :parent_id => 8,
           :menu_match => "^/foo$"
-
-        # Refinery::Page does not allow setting lft and rgt, so stub them.
         ).tap do |p|
+          # Refinery::Page does not allow setting lft and rgt, so stub them.
           p[:lft] = 6
           p[:rgt] = 7
         end
@@ -502,7 +501,7 @@ module Refinery
     end
 
     describe ".find_by_path_or_id" do
-      let!(:market) { FactoryGirl.create(:page, :title => "market") }
+      let!(:market) { Page.create :title => "market" }
       let(:path) { "market" }
       let(:id) { market.id }
 
