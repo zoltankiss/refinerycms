@@ -20,7 +20,7 @@ module Refinery
       end
 
       describe "resource extension" do
-        before { FactoryGirl.create(:resource) }
+        before { resource_factory.save }
 
         it "returns found resource" do
           visit refinery.admin_resources_path
