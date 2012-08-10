@@ -61,7 +61,7 @@ module Refinery
             before do
               Refinery::I18n.stub(:current_locale).and_return(:da)
             end
-              
+
             it "is shown" do
               visit refinery.admin_resources_path
 
@@ -75,7 +75,7 @@ module Refinery
       end
 
       context "edit/update" do
-        let!(:resource) { resource_factory }
+        let!(:resource) { resource_factory! }
 
         it "updates file" do
           visit refinery.admin_resources_path
@@ -98,7 +98,7 @@ module Refinery
       end
 
       context "destroy" do
-        let!(:resource) { resource_factory }
+        let!(:resource) { resource_factory! }
 
         it "removes file" do
           visit refinery.admin_resources_path
@@ -112,7 +112,7 @@ module Refinery
       end
 
       context "download" do
-        let!(:resource) { resource_factory }
+        let!(:resource) { resource_factory! }
 
         it "succeeds" do
           visit refinery.admin_resources_path

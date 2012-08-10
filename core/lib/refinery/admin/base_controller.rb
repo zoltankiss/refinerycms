@@ -7,12 +7,17 @@ module Refinery
       extend ActiveSupport::Concern
 
       included do
-        layout :layout?
-
-        before_filter :authenticate_refinery_user!, :restrict_plugins, :restrict_controller
+        before_filter :authenticate_refinery_user!,
+                      :restrict_plugins,
+                      :restrict_controller,
+                      :if => Proc.new { Core::Authenticator.enabled? }
+        before_filter :refinery_user_required!, :if => :just_installed?
         after_filter :store_location?, :only => [:index] # for redirect_back_or_default
+        before_filter :force_ssl?
 
         helper_method :searching?, :group_by_date
+
+        layout :layout?
       end
 
       def admin?
@@ -30,7 +35,9 @@ module Refinery
 
         records.each do |record|
           key = record.created_at.strftime("%Y-%m-%d")
-          record_group = new_records.collect{|records| records.last if records.first == key }.flatten.compact << record
+          record_group = new_records.collect { |records|
+            records.last if records.first == key
+          }.flatten.compact << record
           (new_records.delete_if {|i| i.first == key}) << [key, record_group]
         end
 
@@ -42,7 +49,7 @@ module Refinery
 
         # Superusers get granted access if they don't already have access.
         if current_refinery_user.has_role?(:superuser)
-          if (plugins = plugins | ::Refinery::Plugins.registered.names).length > current_length
+          if (plugins |= ::Refinery::Plugins.registered.names).length > current_length
             current_refinery_user.plugins = plugins
           end
         end
@@ -63,6 +70,10 @@ module Refinery
         ::Refinery::Plugins.active.any? {|plugin|
           Regexp.new(plugin.menu_match) === controller_path
         }
+      end
+
+      def force_ssl?
+        redirect_to :protocol => 'https' if Core.force_ssl && !request.ssl?
       end
 
       def layout?

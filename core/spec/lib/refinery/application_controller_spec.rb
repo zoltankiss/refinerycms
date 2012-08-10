@@ -5,7 +5,7 @@ module Refinery
     before do
       Rails.application.routes.draw { get "anonymous/index" }
     end
-    
+
     after do
       Rails.application.reload_routes!
     end
@@ -45,38 +45,6 @@ module Refinery
       it "returns false for non root url" do
         request.stub(:path).and_return("/foo/")
         controller.should_not be_home_page
-      end
-    end
-
-    describe "force_ssl" do
-      before do
-        controller.stub(:admin?).and_return(true)
-        controller.stub(:refinery_user_required?).and_return(false)
-      end
-
-      it "is false so standard HTTP is used" do
-        Refinery::Core.stub(:force_ssl).and_return(false)
-
-        get :index
-
-        response.should_not be_redirect
-      end
-
-      it "is true so HTTPS is used" do
-        Refinery::Core.stub(:force_ssl).and_return(true)
-        
-        get :index
-
-        response.should be_redirect
-      end
-
-      it "is true but HTTPS is not used because admin? is false" do
-        controller.stub(:admin?).and_return(false)
-        Refinery::Core.stub(:force_ssl).and_return(true)
-
-        get :index
-
-        response.should_not be_redirect
       end
     end
 

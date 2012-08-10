@@ -20,7 +20,7 @@ module Refinery
           let(:logged_in_user) do
             user = mock 'Refinery::User', :username => 'Joe Fake'
 
-            roles.each do |role|
+            roles.flatten.each do |role|
               user.should_receive(:has_role?).
                    any_number_of_times.with(role).and_return true
             end
@@ -33,11 +33,12 @@ module Refinery
           end
 
           before do
-            controller.should_receive(:refinery_user_required?).and_return false
-            controller.should_receive(:refinery_user?).and_return true
-            controller.should_receive(:authenticate_refinery_user!).and_return true
+            controller.should_receive(:just_installed?).and_return false
+            controller.should_receive(:authenticate_refinery_user!).
+                       and_return true
             controller.should_receive(:restrict_plugins).and_return true
-            controller.should_receive(:allow_controller?).and_return controller_permission
+            controller.should_receive(:allow_controller?).
+                       and_return controller_permission
             controller.stub(:current_refinery_user).and_return logged_in_user
           end
         end
@@ -51,17 +52,23 @@ module Refinery
         end
 
         def login_refinery_user
-          Refinery.deprecate :login_refinery_user, :when => '2.2', :replacement => 'refinery_login_with :refinery'
+          Refinery.deprecate :login_refinery_user, :when => '2.2',
+            :replacement => 'refinery_login_with :refinery'
+
           refinery_login_with :refinery
         end
 
         def login_refinery_superuser
-          Refinery.deprecate :login_refinery_superuser, :when => '2.2', :replacement => 'refinery_login_with :refinery, :superuser'
+          Refinery.deprecate :login_refinery_superuser, :when => '2.2',
+            :replacement => 'refinery_login_with :refinery, :superuser'
+
           refinery_login_with :refinery, :superuser
         end
 
         def login_refinery_translator
-          Refinery.deprecate :login_refinery_translator, :when => '2.2', :replacement => 'refinery_login_with :refinery, :translator'
+          Refinery.deprecate :login_refinery_translator, :when => '2.2',
+            :replacement => 'refinery_login_with :refinery, :translator'
+
           refinery_login_with :refinery, :translator
         end
 

@@ -34,8 +34,8 @@ module Refinery
 
           context "when page doesn't have parent page" do
             before do
-              Refinery::Pages.stub(:view_template_whitelist).and_return(%w(one two))
-              Refinery::Pages.stub(:layout_template_whitelist).and_return(%w(two one))
+              Pages.stub(:view_template_whitelist).and_return(%w(one two))
+              Pages.stub(:layout_template_whitelist).and_return(%w(two one))
             end
 
             it "returns option hash with first item from configured whitelist" do
@@ -52,13 +52,13 @@ module Refinery
       end
 
       describe "#page_meta_information" do
-        let(:page) { FactoryGirl.build(:page) }
+        let(:page) { Page.new }
 
         context "when show_in_menu is false" do
           it "adds 'hidden' label" do
             page.show_in_menu = false
 
-            helper.page_meta_information(page).should eq("<span class=\"label\">hidden</span>")
+            helper.page_meta_information(page).should include('hidden')
           end
         end
 
@@ -66,13 +66,13 @@ module Refinery
           it "adds 'draft' label" do
             page.draft = true
 
-            helper.page_meta_information(page).should eq("<span class=\"label notice\">draft</span>")
+            helper.page_meta_information(page).should include('draft')
           end
         end
       end
 
       describe "#page_title_with_translations" do
-        let(:page) { FactoryGirl.build(:page) }
+        let(:page) { Page.new }
 
         before do
           Globalize.with_locale(:en) do
@@ -94,7 +94,7 @@ module Refinery
 
         context "when title for current locale isn't available" do
           it "returns existing title from translations" do
-            Refinery::Page::Translation.where(:locale => :en).first.delete
+            Page::Translation.where(:locale => :en).first.delete
             helper.page_title_with_translations(page).should eq("melnraksts")
           end
         end

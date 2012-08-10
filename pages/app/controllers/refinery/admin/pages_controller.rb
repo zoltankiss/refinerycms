@@ -63,13 +63,22 @@ module Refinery
       end
 
       def restrict_access
-        if current_refinery_user.has_role?(:translator) && !current_refinery_user.has_role?(:superuser) &&
-             (params[:switch_locale].blank? || params[:switch_locale] == Refinery::I18n.default_frontend_locale.to_s)
+        if translator? && !current_refinery_user.has_role?(:superuser) &&
+
           flash[:error] = t('translator_access', :scope => 'refinery.admin.pages')
           redirect_to refinery.admin_pages_path
         end
 
         return true
+      end
+
+      def translator?
+        current_refinery_user.has_role? :translator
+      end
+
+      def default_or_no_locale?
+        params[:switch_locale].blank? ||
+        params[:switch_locale] == Refinery::I18n.default_frontend_locale.to_s
       end
 
     end

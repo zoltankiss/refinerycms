@@ -13,20 +13,15 @@ module Refinery
 
       protect_from_forgery # See ActionController::RequestForgeryProtection
 
-      send :include, Refinery::Crud # basic create, read, update and delete methods
+      include Refinery::Crud # basic create, read, update and delete methods
 
-      send :before_filter, :refinery_user_required?, :if => :admin?
-
-      send :before_filter, :force_ssl?, :if => :admin?
-
-      send :after_filter, :store_current_location!,
-                          :if => Proc.new {|c| send(:refinery_user?) }
+      after_filter :store_current_location!, :if => [:refinery_user?]
 
       if Refinery::Core.rescue_not_found
-        send :rescue_from, ActiveRecord::RecordNotFound,
-                           ActionController::UnknownAction,
-                           ActionView::MissingTemplate,
-                           :with => :error_404
+        rescue_from ActiveRecord::RecordNotFound,
+                    ActionController::UnknownAction,
+                    ActionView::MissingTemplate,
+                    :with => :error_404
       end
     end
 
@@ -51,12 +46,11 @@ module Refinery
       %r{^#{Regexp.escape(request.path)}} === refinery.root_path
     end
 
-    def just_installed?
-      Refinery::Role[:refinery].users.empty?
-    end
+    delegate :just_installed?, :to => Refinery::Core::Authenticator
 
     def local_request?
-      Rails.env.development? || /(::1)|(127.0.0.1)|((192.168).*)/ === request.remote_ip
+      Rails.env.development? ||
+        /(::1)|(127.0.0.1)|((192.168).*)/ === request.remote_ip
     end
 
     def login?
@@ -64,10 +58,6 @@ module Refinery
     end
 
   protected
-
-    def force_ssl?
-      redirect_to :protocol => 'https' if !request.ssl? && Refinery::Core.force_ssl
-    end
 
     # use a different model for the meta information.
     def present(model)
@@ -82,10 +72,8 @@ module Refinery
       default
     end
 
-    def refinery_user_required?
-      if just_installed? && controller_name != 'users'
-        redirect_to refinery.signup_path
-      end
+    def refinery_user_required!
+      redirect_to refinery.signup_path
     end
 
   private

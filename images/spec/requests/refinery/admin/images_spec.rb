@@ -32,11 +32,11 @@ module Refinery
         end
 
         page.should have_content(::I18n.t('created', :scope => 'refinery.crudify', :what => "'Image With Dashes'"))
-        Refinery::Image.count.should == 1
+        Image.count.should == 1
       end
 
       it 'is accessible via url' do
-        image = Refinery::Image.create(:image => Refinery.roots(:'refinery/images').join("spec/fixtures/image-with-dashes.jpg"))
+        image = Image.create(:image => Refinery.roots(:'refinery/images').join("spec/fixtures/image-with-dashes.jpg"))
         get image.url
 
         response.should be_success
@@ -44,7 +44,7 @@ module Refinery
     end
 
     context "when an image exists" do
-      let!(:image) { FactoryGirl.create(:image) }
+      let!(:image) { image_factory! }
 
       context "edit/update" do
         it "updates image" do
@@ -60,7 +60,7 @@ module Refinery
           click_button ::I18n.t('save', :scope => 'refinery.admin.form_actions')
 
           page.should have_content(::I18n.t('updated', :scope => 'refinery.crudify', :what => "'Fathead'"))
-          Refinery::Image.count.should == 1
+          Image.count.should == 1
 
           lambda { click_link "View this image" }.should_not raise_error
         end
@@ -74,7 +74,7 @@ module Refinery
           click_link ::I18n.t('delete', :scope => 'refinery.admin.images')
 
           page.should have_content(::I18n.t('destroyed', :scope => 'refinery.crudify', :what => "'Beach'"))
-          Refinery::Image.count.should == 0
+          Image.count.should == 0
         end
       end
 

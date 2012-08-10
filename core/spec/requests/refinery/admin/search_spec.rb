@@ -2,15 +2,15 @@ require "spec_helper"
 
 module Refinery
   describe "search" do
-    refinery_login_with :refinery_user
+    refinery_login_with :refinery
 
     context "when searched item exists" do
       describe "image extension" do
-        let!(:image) { FactoryGirl.create(:image) }
+        let!(:image) { image_factory! }
 
         it "returns found image" do
           visit refinery.admin_images_path
-          fill_in "search", :with => "beach"
+          fill_in "search", :with => image.image_name.split(' ').first
           click_button "Search"
 
           within ".actions" do
@@ -20,13 +20,13 @@ module Refinery
       end
 
       describe "resource extension" do
-        before { resource_factory.save }
+        let!(:resource) { resource_factory! }
 
         it "returns found resource" do
           visit refinery.admin_resources_path
-          fill_in "search", :with => "refinery"
+          fill_in "search", :with => resource.file_name.split(' ').first
           click_button "Search"
-          page.should have_content("Refinery Is Awesome.txt")
+          page.should have_content(resource.title)
         end
       end
 
