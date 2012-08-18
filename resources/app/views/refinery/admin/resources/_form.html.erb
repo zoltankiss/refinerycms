@@ -14,13 +14,14 @@
       <%= f.file_field :file %>
     <% else %>
       <% # we must only hint at multiple when it's a *new* record otherwise update fails. %>
-      <%= f.file_field :file, :multiple => (true unless @resource.persisted?) %>
+      <%= f.file_field :file, :multiple => (true if @resource.new_record?) %>
     <% end %>
   </div>
 
   <div class='field' id='maximum_file_size'>
     <label>
-      <%= t('.maximum_file_size', :bytes => number_to_human_size(Refinery::Resources.max_file_size)) %>
+      <%= t '.maximum_file_size',
+            :bytes => number_to_human_size(Refinery::Resources.max_file_size) %>
     </label>
   </div>
 

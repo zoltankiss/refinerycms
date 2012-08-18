@@ -38,14 +38,14 @@ module Refinery
         end
 
         describe "max file size" do
+          let(:current_locale) { nil }
           before do
-            Refinery::Resources.stub(:max_file_size).and_return('1224')
+            Refinery::Resources.config.max_file_size = 1224
+            Refinery::I18n.stub(:current_locale).and_return(current_locale)
           end
 
           context "in english" do
-            before do
-              Refinery::I18n.stub(:current_locale).and_return(:en)
-            end
+            let(:current_locale) { :en }
 
             it "is shown" do
               visit refinery.admin_resources_path
@@ -58,9 +58,7 @@ module Refinery
           end
 
           context "in danish" do
-            before do
-              Refinery::I18n.stub(:current_locale).and_return(:da)
-            end
+            let(:current_locale) { :da }
 
             it "is shown" do
               visit refinery.admin_resources_path

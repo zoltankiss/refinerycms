@@ -53,7 +53,8 @@ module Refinery
     end
 
     describe ".create_resources" do
-      let(:file) { Refinery.roots(:'refinery/resources').join("spec/fixtures/refinery_is_awesome.txt") }
+      let(:file) { Refinery.roots(:'refinery/resources').
+                            join("spec/fixtures/refinery_is_awesome.txt") }
 
       context "only one resource uploaded" do
         it "returns an array containing one resource" do
@@ -81,9 +82,7 @@ module Refinery
       }
 
       describe "valid #file" do
-        before do
-          Resources.max_file_size = File.read(file).size + 10
-        end
+        before { Resources.config.max_file_size = File.read(file).size + 10 }
 
         it "should be valid when size does not exceed .max_file_size" do
           resource_factory(file).should be_valid
@@ -92,9 +91,7 @@ module Refinery
 
       describe "too large #file" do
         let(:resource) { resource_factory(file) }
-        before do
-          Resources.max_file_size = File.read(file).size - 10
-        end
+        before { Resources.config.max_file_size = File.read(file).size - 10 }
 
         it "should not be valid when size exceeds .max_file_size" do
           resource.should_not be_valid
@@ -103,7 +100,9 @@ module Refinery
         it "should contain an error message" do
           resource.valid?
           resource.errors.should_not be_empty
-          resource.errors[:file].should == ["File should be smaller than #{Resources.max_file_size} bytes in size"]
+          resource.errors[:file].should == [
+            "File should be smaller than #{Resources.max_file_size} bytes in size"
+          ]
         end
       end
 

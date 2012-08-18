@@ -2,7 +2,7 @@ require "spec_helper"
 
 module Refinery
   describe "custom" do
-    refinery_login_with :refinery_user
+    refinery_login_with :refinery
 
     context "javascripts" do
       before do

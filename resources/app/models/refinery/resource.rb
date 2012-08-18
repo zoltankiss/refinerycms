@@ -39,7 +39,7 @@ module Refinery
       def create_resources(params)
         resources = []
 
-        unless params.present? and params[:file].is_a?(Array)
+        unless params.present? && params[:file].is_a?(Array)
           resources << create(params)
         else
           params[:file].each do |resource|

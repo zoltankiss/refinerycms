@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Refinery
   describe 'layout' do
-    refinery_login_with :refinery_user
+    refinery_login_with :refinery
 
     let(:home_page) { Page.create :title => 'Home', :link_url => '/' }
 
