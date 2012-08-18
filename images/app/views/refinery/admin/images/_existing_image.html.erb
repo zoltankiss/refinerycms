@@ -6,12 +6,12 @@
     <ul>
       <% @images.each do |image| -%>
         <li<%= " class='selected'" if @image_id == image.id %>>
-          <%= image_fu(image, '106x106#c', {
+          <%= image_fu image, '106x106#c', {
                          :alt => image.title,
                          :title => image.title,
                          :id => "image_#{image.id}",
                          :'data-id' => image.id
-                       }.merge(thumbnail_urls(image))) -%>
+                       }.merge(thumbnail_urls(image)) -%>
         </li>
       <% end -%>
     </ul>

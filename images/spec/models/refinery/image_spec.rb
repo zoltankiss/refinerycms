@@ -6,12 +6,6 @@ module Refinery
     let(:image) { image_factory }
     let(:created_image) { image_factory! }
 
-    context "with valid attributes" do
-      it "should report being valid" do
-        image.valid?.should be_true
-      end
-    end
-
     context "image url" do
       it "responds to .thumbnail" do
         image.should respond_to(:thumbnail)
@@ -183,6 +177,19 @@ module Refinery
           image.valid?
           image.errors.should_not be_empty
           image.errors[:image].should == ["You must specify an image for upload"]
+        end
+      end
+
+      context "when image exists" do
+        it "doesn't allow to replace it with image which has different file name" do
+          created_image.image = Refinery.roots(:'refinery/images').join("spec/fixtures/beach-alternate.jpeg")
+          created_image.should_not be_valid
+          created_image.should have_at_least(1).error_on(:image_name)
+        end
+
+        it "allows to replace it with image which has the same file name" do
+          created_image.image = Refinery.roots(:'refinery/images').join("spec/fixtures/beach.jpeg")
+          created_image.should be_valid
         end
       end
     end
