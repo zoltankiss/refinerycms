@@ -8,22 +8,30 @@ module Refinery
               :include => [:translations, :children],
               :paging => false
 
-      after_filter lambda{::Refinery::Page.expire_page_caching}, :only => [:update_positions]
+      after_filter lambda{::Refinery::Page.expire_page_caching},
+                   :only => [:update_positions]
 
       before_filter :load_valid_templates, :only => [:edit, :new]
 
-      before_filter :restrict_access, :only => [:create, :update, :update_positions, :destroy],
+      before_filter :restrict_access,
+                    :only => [:create, :update, :update_positions, :destroy],
                     :if => proc { Refinery.i18n_enabled? }
 
       def new
-        @page = Refinery::Page.new(params.except(:controller, :action, :switch_locale))
-        Refinery::Pages.default_parts_for(@page).each_with_index do |page_part, index|
-          @page.parts << Refinery::PagePart.new(:title => page_part, :position => index)
+        @page = Page.new(
+          params.except(:controller, :action, :switch_locale)
+        )
+
+        Pages.default_parts_for(@page).each_with_index do |page_part, index|
+          @page.parts << Refinery::PagePart.new(
+            :title => page_part,
+            :position => index
+          )
         end
       end
 
       def children
-        @page = find_page
+        find_page
         render :layout => false
       end
 
@@ -63,8 +71,7 @@ module Refinery
       end
 
       def restrict_access
-        if translator? && !current_refinery_user.has_role?(:superuser) &&
-
+        if translator? && !superuser?
           flash[:error] = t('translator_access', :scope => 'refinery.admin.pages')
           redirect_to refinery.admin_pages_path
         end
@@ -73,7 +80,11 @@ module Refinery
       end
 
       def translator?
-        current_refinery_user.has_role? :translator
+        current_refinery_user && current_refinery_user.has_role?(:translator)
+      end
+
+      def superuser?
+        current_refinery_user && current_refinery_user.has_role?(:superuser)
       end
 
       def default_or_no_locale?

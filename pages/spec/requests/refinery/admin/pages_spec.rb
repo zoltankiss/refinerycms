@@ -197,6 +197,7 @@ module Refinery
 
             new_window_should_have_content("My first page")
 
+            # If this is non-zero then the javascript that previews failed.
             Page.count.should == 0
           end
         end
