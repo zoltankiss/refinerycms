@@ -1,5 +1,5 @@
 <div class='clearfix'>
-  <section id='records' class='clearfix<%= ' one_list' if @recent_activity.empty? or @recent_inquiries.empty? %>'>
+  <section id='records' class='clearfix<%= ' one_list' if @recent_activity.empty? || @recent_inquiries.empty? %>'>
     <%= render 'records' %>
   </section>
   <aside id='actions'>
@@ -7,7 +7,7 @@
     <%= render 'actions' %>
   </aside>
 </div>
-<% if request.env["HTTP_USER_AGENT"] =~ /MSIE/ and
-        Refinery::Core.show_internet_explorer_upgrade_message %>
-  <% flash.now[:message] = render(:partial => "/refinery/ie6check")  %>
+<% if Refinery::Core.show_internet_explorer_upgrade_message &&
+      /MSIE/ === request.env["HTTP_USER_AGENT"] %>
+  <% flash.now[:message] = render '/refinery/ie6check'  %>
 <% end %>

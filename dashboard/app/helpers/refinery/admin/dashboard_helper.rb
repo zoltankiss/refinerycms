@@ -33,6 +33,14 @@ module Refinery
         article = t('article', :scope => "refinery.plugins.#{plugin.name}.", :default => 'the')
       end
 
+      def force_encoding(string)
+        if string.respond_to? :force_encoding
+          string.force_encoding 'utf-8'
+        else
+          string
+        end
+      end
+
     end
   end
 end
