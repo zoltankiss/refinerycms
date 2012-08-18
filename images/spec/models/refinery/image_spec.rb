@@ -121,9 +121,9 @@ module Refinery
 
     describe '#thumbnail_dimensions returns correctly with' do
       let(:created_alternate_image) {
-        image_factory Refinery.roots(:'refinery/images').join(
+        image_factory! Refinery.roots(:'refinery/images').join(
                         'spec/fixtures/beach-alternate.jpeg'
-                      ), true
+                      )
       }
 
       it 'nil' do

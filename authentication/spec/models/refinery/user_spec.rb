@@ -3,8 +3,32 @@ require 'spec_helper'
 module Refinery
   describe User do
 
-    let(:user) { FactoryGirl.create(:user) }
-    let(:refinery_user) { FactoryGirl.create(:refinery_user) }
+    def user_factory(randomiser = rand(Time.now.to_i))
+      User.new :username => "ugisozols_#{randomiser}",
+               :email => "ugisozols_#{randomiser}@example.com",
+               :password => "ugisozols_#{randomiser}"
+    end
+
+    def user_factory!(randomiser = nil)
+      user = user_factory(randomiser)
+      user.save
+      user
+    end
+
+    let(:user) { user_factory! }
+    let(:refinery_user) {
+      refinery_user = user_factory! 'refinery_user'
+      refinery_user.add_role :refinery
+      refinery_user
+    }
+    let(:super_user) do
+      super_user = user_factory! 'super_user'
+      super_user.add_role :refinery
+      super_user.add_role :superuser
+      super_user
+    end
+    let(:user_not_persisted) { user_factory }
+    let(:user_persisted) { user_factory! }
 
     context "Roles" do
       context "add_role" do
@@ -83,13 +107,6 @@ module Refinery
     end
 
     describe "#can_delete?" do
-      let(:user_not_persisted) { FactoryGirl.build(:refinery_user) }
-      let(:super_user) do
-        super_user = FactoryGirl.create(:refinery_user)
-        super_user.add_role(:superuser)
-        super_user
-      end
-
       context "won't allow to delete" do
         it "not persisted user record" do
           refinery_user.can_delete?(user_not_persisted).should be_false
@@ -122,14 +139,6 @@ module Refinery
     end
 
     describe "#can_edit?" do
-      let(:user_not_persisted) { FactoryGirl.build(:refinery_user) }
-      let(:super_user) do
-        super_user = FactoryGirl.create(:refinery_user)
-        super_user.add_role(:superuser)
-        super_user
-      end
-      let(:user_persisted) { FactoryGirl.create(:refinery_user)}
-
       context "won't allow to edit" do
         it "non-persisted user record" do
           refinery_user.can_edit?(user_not_persisted).should be_false
@@ -190,7 +199,7 @@ module Refinery
 
     describe "#create_first" do
       let(:first_user) do
-        first = FactoryGirl.build(:user)
+        first = user_factory
         first.create_first
         first
       end

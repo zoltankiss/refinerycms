@@ -2,7 +2,7 @@ require "spec_helper"
 
 module Refinery
   describe "dashboard" do
-    refinery_login_with :refinery_user
+    refinery_login_with :refinery
 
     describe "quick tasks" do
       specify "buttons" do

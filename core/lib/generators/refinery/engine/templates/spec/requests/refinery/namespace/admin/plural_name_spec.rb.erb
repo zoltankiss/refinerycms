@@ -5,12 +5,12 @@ describe Refinery do
   describe "<%= namespacing %>" do
     describe "Admin" do
       describe "<%= plural_name %>" do
-        refinery_login_with :refinery_user
+        refinery_login_with :refinery
 <% if (title = attributes.detect { |a| a.type.to_s == "string" }).present? %>
         describe "<%= plural_name %> list" do
           before do
-            Refinery::<%= namespacing %>::<%= class_name.create :<%= title.name %> => "UniqueTitleOne"
-            Refinery::<%= namespacing %>::<%= class_name.create :<%= title.name %> => "UniqueTitleTwo"
+            Refinery::<%= namespacing %>::<%= class_name %>.create :<%= title.name %> => "UniqueTitleOne"
+            Refinery::<%= namespacing %>::<%= class_name %>.create :<%= title.name %> => "UniqueTitleTwo"
           end
 
           it "shows two items" do

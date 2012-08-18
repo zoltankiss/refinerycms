@@ -11,7 +11,7 @@ end
 module Refinery
   module Admin
     describe "Pages" do
-      refinery_login_with :refinery_user
+      refinery_login_with :refinery
 
       context "when no pages" do
         it "invites to create one" do
@@ -538,7 +538,7 @@ module Refinery
     end
 
     describe "TranslatePages" do
-      refinery_login_with :refinery_translator
+      refinery_login_with :refinery, :translator
 
       describe "add page to main locale" do
         it "doesn't succeed" do

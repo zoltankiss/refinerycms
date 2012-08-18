@@ -165,10 +165,10 @@ module Refinery
           next if /seeds.rb.erb/ === path.to_s
 
           unless /views/ === path.to_s
-            template_path = template_path.to_s.sub(".erb", "")
+            template_path = template_path.to_s.sub ".erb", ""
           end
 
-          template(path, template_path)
+          template path, template_path
         end
       end
     end
