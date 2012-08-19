@@ -80,11 +80,11 @@ module Refinery
       end
 
       def translator?
-        current_refinery_user && current_refinery_user.has_role?(:translator)
+        current_refinery_user.has_role?(:translator)
       end
 
       def superuser?
-        current_refinery_user && current_refinery_user.has_role?(:superuser)
+        current_refinery_user.has_role?(:superuser)
       end
 
       def default_or_no_locale?
