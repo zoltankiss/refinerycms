@@ -3,15 +3,27 @@ require 'spec_helper'
 module Refinery
   module Admin
     describe CoreController do
-      refinery_login_with_factory :refinery_user
+      refinery_login_with :refinery
 
-      it "updates the plugin positions" do
-        plugins = logged_in_user.plugins.reverse.map &:name
+      let(:plugins) do
+        Refinery::Plugins.registered.names.sort_by{rand}
+      end
 
-        post 'update_plugin_positions', :menu => plugins
+      context 'reordering' do
+        before do
+          user_plugins = mock('user plugins')
+          plugins.each_with_index do |plugin, index|
+            where = mock('where')
+            where.should_receive(:update_all).with(:position => index)
+            user_plugins.should_receive('where').with(:name => plugin).
+                         and_return(where)
+          end
+          logged_in_user.should_receive(:plugins).exactly(plugins.length).times.
+                         and_return(user_plugins)
+        end
 
-        logged_in_user.plugins.reload.each_with_index do |plugin, idx|
-          plugin.name.should eql(plugins[idx])
+        it "updates the plugin positions" do
+          post 'update_plugin_positions', :menu => plugins
         end
       end
     end
