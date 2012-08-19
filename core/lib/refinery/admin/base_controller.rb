@@ -7,11 +7,11 @@ module Refinery
       extend ActiveSupport::Concern
 
       included do
+        before_filter :refinery_user_required!, :if => :just_installed?
         before_filter :authenticate_refinery_user!,
                       :restrict_plugins,
                       :restrict_controller,
                       :if => Proc.new { Core::Authenticator.enabled? }
-        before_filter :refinery_user_required!, :if => :just_installed?
         after_filter :store_location?, :only => [:index] # for redirect_back_or_default
         before_filter :force_ssl?
 

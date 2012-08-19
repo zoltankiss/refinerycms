@@ -4,6 +4,7 @@ module Refinery
     layout 'refinery/layouts/login'
 
     before_filter :clear_unauthenticated_flash, :only => [:new]
+    before_filter :refinery_user_required!, :if => :just_installed?
 
     def create
       super
