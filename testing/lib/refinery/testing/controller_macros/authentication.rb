@@ -18,8 +18,11 @@ module Refinery
           let(:controller_permission) { true }
           roles = handle_deprecated_roles! roles
           let(:logged_in_user) do
-            user = mock 'Refinery::User', :username => 'Joe Fake'
+            user = mock 'Refinery::User', :username => 'Joe Fake', :id => 1
 
+            roles.flatten!
+            roles.should_receive(:pluck).any_number_of_times.
+                  with(:title).and_return roles.map { |role| role.to_s.titleize }
             roles.each do |role|
               user.should_receive(:has_role?).
                    any_number_of_times.with(role).and_return true
@@ -28,6 +31,7 @@ module Refinery
               user.should_receive(:has_role?).
                    any_number_of_times.with(:superuser).and_return false
             end
+            user.stub(:roles).and_return roles
 
             user
           end
@@ -44,13 +48,9 @@ module Refinery
 
         def factory_user(factory)
           let(:logged_in_user) { FactoryGirl.create factory }
-<<<<<<< HEAD
+
           before do
-            @request.env["devise.mapping"] = Devise.mappings[:admin]
-=======
-          before(:each) do
             @request.env["devise.mapping"] = Devise.mappings[:admin] if defined?(Devise)
->>>>>>> Don't force a dependency on refinerycms-authentication.
             sign_in logged_in_user
           end
         end

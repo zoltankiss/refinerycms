@@ -4,7 +4,7 @@ module Refinery
 
     config_accessor :rescue_not_found, :s3_backend, :base_cache_key, :site_name,
                     :google_analytics_page_code, :authenticity_token_on_frontend,
-                    :dragonfly_secret, :javascripts, :stylesheets, :user_class
+                    :dragonfly_secret, :javascripts, :stylesheets, :user_class,
                     :wymeditor_whitelist_tags, :force_ssl, :backend_route,
                     :s3_bucket_name, :s3_region, :s3_access_key_id,
                     :s3_secret_access_key
