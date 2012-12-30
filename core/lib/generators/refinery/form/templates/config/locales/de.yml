@@ -1,7 +1,7 @@
 de:
   refinery:
     plugins:
-      <%= plural_name %>:
+      <%= plugin_name %>:
         title: <%= plural_name.titleize %>
         description: Stellt ein Kontaktformular zur Verfügung und speichert Kontaktanfragen
     <%= namespacing.underscore %>:

@@ -1,7 +1,7 @@
 fr:
   refinery:
     plugins:
-      <%= plural_name %>:
+      <%= plugin_name %>:
         title: <%= plural_name.titleize %>
         description: Fournit un formulaire de contact et gère les demandes de contacts.
     <%= namespacing.underscore %>:

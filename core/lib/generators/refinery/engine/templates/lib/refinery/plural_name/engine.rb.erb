@@ -1,3 +1,4 @@
+<% if plugin_name == plural_name -%>
 module Refinery
   module <%= namespacing %>
     class Engine < Rails::Engine
@@ -6,9 +7,9 @@ module Refinery
 
       engine_name :refinery_<%= extension_plural_name %>
 
-      initializer "register refinerycms_<%= namespacing.underscore %>_<%= plural_name %> plugin" do
+      initializer "register refinerycms_<%= plugin_name %> plugin" do
         Refinery::Plugin.register do |plugin|
-          plugin.name = "refinerycms_<%= namespacing.underscore %>_<%= plural_name %>"
+          plugin.name = '<%= plugin_name %>'
           plugin.url = proc { Refinery::Core::Engine.routes.url_helpers.<%= namespacing.underscore %>_admin_<%= plural_name %>_path }
           plugin.pathname = root
           plugin.activity = {
@@ -25,3 +26,20 @@ module Refinery
     end
   end
 end
+<% else -%>
+require 'refinery/<%= extension_plural_name %>/engine'
+Refinery::<%= namespacing %>::Engine.class_eval do
+  initializer "register refinerycms_<%= plugin_name %> plugin" do
+    Refinery::Plugin.register do |plugin|
+      plugin.name = '<%= plugin_name %>'
+      plugin.url = proc { Refinery::Core::Engine.routes.url_helpers.<%= namespacing.underscore %>_admin_<%= plural_name %>_path }
+      plugin.pathname = root
+      plugin.activity = {
+        :class_name => :'refinery/<%= namespacing.underscore %>/<%= singular_name %>'<% if (title = attributes.detect { |a| a.type.to_s == "string" }).present? and title.name != 'title' %>,
+        :title => '<%= title.name %>'<% end %>
+      }
+      plugin.menu_match = %r{refinery/<%= namespacing.underscore %>/<%= plural_name %>(/.*)?$}
+    end
+  end
+end
+<% end -%>

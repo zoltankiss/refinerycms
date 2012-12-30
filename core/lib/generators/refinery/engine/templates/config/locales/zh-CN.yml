@@ -1,7 +1,7 @@
 zh-CN:
   refinery:
     plugins:
-      <%= plural_name %>:
+      <%= plugin_name %>:
         title: <%= plural_name.titleize %>
     <%= namespacing.underscore %>:
       admin:

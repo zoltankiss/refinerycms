@@ -1,7 +1,7 @@
 it:
   refinery:
     plugins:
-      <%= plural_name %>:
+      <%= plugin_name %>:
         title: <%= plural_name.titleize %>
     <%= namespacing.underscore %>:
       <%= plural_name %>:

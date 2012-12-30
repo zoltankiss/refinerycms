@@ -1,7 +1,7 @@
 nl:
   refinery:
     plugins:
-      <%= plural_name %>:
+      <%= plugin_name %>:
         title: <%= plural_name.titleize %>
         description: Contactformulier en beheer van <%= plural_name.humanize.downcase %>
     <%= namespacing.underscore %>:

@@ -1,7 +1,7 @@
 pt-BR:
   refinery:
     plugins:
-      <%= plural_name %>:
+      <%= plugin_name %>:
         title: <%= plural_name.titleize %>
         description: Gerenciar contatos
     <%= namespacing.underscore %>:

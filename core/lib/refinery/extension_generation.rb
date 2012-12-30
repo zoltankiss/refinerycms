@@ -55,6 +55,10 @@ module Refinery
       end
     end
 
+    def plugin_name
+      [extension_plural_name, plural_name].uniq.join '_'
+    end
+
     def localized?
       localized_attributes.any?
     end
@@ -169,7 +173,7 @@ module Refinery
           elsif %r{/readme.md$} === path || %r{/#{plural_name}.rb$} === path
             path = nil
           end
-        elsif extension.present? and path =~ /lib\/#{plural_name}.rb$/
+        elsif extension.present? && /lib\/#{plural_name}.rb$/ === path
           path = nil
         end
       end
