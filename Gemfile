@@ -12,6 +12,11 @@ gem 'awesome_nested_set', git: 'https://github.com/collectiveidea/awesome_nested
 # Add support for refinerycms-acts-as-indexed
 gem 'refinerycms-acts-as-indexed', git: 'https://github.com/refinery/refinerycms-acts-as-indexed'
 
+# Add the default authentication extension
+gem 'refinerycms-authentication-devise',
+  git: 'https://github.com/refinery/refinerycms-authentication-devise',
+  branch: 'master'
+
 gem 'seo_meta', git: 'https://github.com/parndt/seo_meta', branch: 'master'
 
 # Add the default visual editor.
