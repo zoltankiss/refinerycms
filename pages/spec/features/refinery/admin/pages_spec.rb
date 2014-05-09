@@ -19,7 +19,7 @@ module Refinery
   module Admin
     describe "Pages" do
       before { ::I18n.default_locale = Globalize.locale = :en }
-      refinery_login_with :refinery_user
+      # refinery_login_with :refinery_user
 
       context "when no pages" do
         it "invites to create one" do
@@ -706,7 +706,7 @@ module Refinery
     end
 
     describe "TranslatePages" do
-      refinery_login_with :refinery_translator
+      # refinery_login_with :refinery_translator
 
       describe "add page to main locale" do
         it "doesn't succeed" do
@@ -749,6 +749,7 @@ module Refinery
         it "doesn't succeed" do
           visit refinery.admin_pages_path
 
+          page.should have_content("Remove this page forever")
           click_link "Remove this page forever"
 
           page.should have_content("You do not have the required permission to modify pages in this language.")

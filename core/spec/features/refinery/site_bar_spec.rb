@@ -2,7 +2,7 @@ require "spec_helper"
 
 module Refinery
   describe "site bar" do
-    refinery_login_with :refinery_user
+    # refinery_login_with :refinery_user
 
     it "have logout link" do
       visit refinery.admin_dashboard_path
@@ -20,9 +20,9 @@ module Refinery
       end
 
       it "switches to frontend" do
-        page.current_path.should == refinery.admin_dashboard_path
-        click_link "Switch to your website"
-        page.current_path.should == refinery.root_path
+        expect { click_link "Switch to your website" }.to change {
+          page.current_path
+        }.from(refinery.admin_dashboard_path).to(refinery.root_path)
       end
     end
 
@@ -40,9 +40,9 @@ module Refinery
       end
 
       it "switches to backend" do
-        page.current_path.should == refinery.root_path
-        click_link "Switch to your website editor"
-        page.current_path.should == refinery.admin_root_path
+        expect { click_link "Switch to your website editor" }.to change {
+          page.current_path
+        }.from(refinery.root_path).to(refinery.admin_root_path)
       end
     end
   end

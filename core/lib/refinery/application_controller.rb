@@ -3,7 +3,7 @@ module Refinery
 
     def self.included(base) # Extend controller
       base.helper_method :home_page?, :local_request?, :just_installed?,
-                         :from_dialog?, :admin?, :login?
+                         :from_dialog?, :admin?, :login?, :refinery_user?
 
       base.protect_from_forgery # See ActionController::RequestForgeryProtection
 
@@ -48,6 +48,13 @@ module Refinery
 
     def login?
       (/^(user|session)(|s)/ === controller_name && !admin?) || just_installed?
+    end
+
+    def refinery_user?
+      true
+    end
+
+    def store_location
     end
 
   protected

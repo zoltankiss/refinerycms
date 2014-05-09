@@ -42,25 +42,27 @@ module Refinery
       end
 
       def require_refinery_users!
-        redirect_to refinery.new_signup_path if just_installed? && controller_name != 'users'
+        # redirect_to refinery.new_signup_path if just_installed? && controller_name != 'users'
+        true
       end
 
       def restrict_plugins
-        current_length = (plugins = current_refinery_user.authorized_plugins).length
+        # current_length = (plugins = current_refinery_user.authorized_plugins).length
+        #
+        # # Superusers get granted access if they don't already have access.
+        # if current_refinery_user.has_role?(:superuser)
+        #   if (plugins = plugins | ::Refinery::Plugins.registered.names).length > current_length
+        #     current_refinery_user.plugins = plugins
+        #   end
+        # end
 
-        # Superusers get granted access if they don't already have access.
-        if current_refinery_user.has_role?(:superuser)
-          if (plugins = plugins | ::Refinery::Plugins.registered.names).length > current_length
-            current_refinery_user.plugins = plugins
-          end
-        end
-
-        ::Refinery::Plugins.set_active(plugins)
+        ::Refinery::Plugins.set_active(Refinery::Plugins.registered.names)
       end
 
       def restrict_controller
         unless allow_controller? params[:controller].gsub 'admin/', ''
-          logger.warn "'#{current_refinery_user.username}' tried to access '#{params[:controller]}' but was rejected."
+          # logger.warn "'#{current_refinery_user.username}' tried to access '#{params[:controller]}' but was rejected." # TODO
+          logger.warn "A user tried to access '#{params[:controller]}' but was rejected."
           error_404
         end
       end
@@ -84,9 +86,12 @@ module Refinery
         store_location unless request.xhr? || from_dialog?
       end
 
-      # Override authorized? so that only users with the Refinery role can admin the website.
-      def authorized?
-        refinery_user?
+      def store_location
+        true
+      end
+
+      def authenticate_refinery_user!
+        true
       end
     end
   end

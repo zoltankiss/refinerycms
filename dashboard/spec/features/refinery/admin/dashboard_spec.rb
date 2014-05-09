@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "dashboard" do
-  refinery_login_with :refinery_user
+  # refinery_login_with :refinery_user
 
   describe "quick tasks" do
     specify "buttons" do
@@ -32,17 +32,17 @@ describe "dashboard" do
   end
 
   describe "latest activity" do
-    before do
-      3.times { |n| FactoryGirl.create :refinery_user, :username => "ugisozols#{n}" }
-      3.times { |n| FactoryGirl.create :page, :title => "Refinery CMS #{n}" }
-    end
+    let!(:image) { FactoryGirl.create :image }
+    let!(:alternate_image) { FactoryGirl.create :alternate_image }
+    let!(:pages) { 3.times.map { |n| FactoryGirl.create :page, :title => "Refinery CMS #{n}" } }
 
     it "shows created tracked objects" do
       visit refinery.admin_dashboard_path
 
       page.should have_content("Latest Activity")
-      3.times { |n| page.should have_content("Ugisozols#{n} user was added") }
-      3.times { |n| page.should have_content("Refinery cms #{n} page was added") }
+      page.should have_content("#{image.title.capitalize} image was added")
+      page.should have_content("#{alternate_image.title.capitalize} image was added")
+      pages.each { |p| page.should have_content("#{p.title.capitalize} page was added") }
     end
 
     # see https://github.com/refinery/refinerycms/issues/1673

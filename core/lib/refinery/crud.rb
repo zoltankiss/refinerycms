@@ -351,6 +351,12 @@ module Refinery
               #{options[:searchable].to_s}
             end
           end
+
+          # Redirect to the URI stored by the most recent store_location call or
+          # to the passed default.
+          def redirect_back_or_default(default)
+            redirect_to(session.delete(:return_to) || default)
+          end
         )
 
       end

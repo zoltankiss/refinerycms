@@ -19,7 +19,7 @@
         </span>
 
         <%= link_to t('.log_out', site_bar_translate_locale_args),
-                    refinery.logout_path, :id => 'logout' %>
+                    refinery.logout_path, :id => 'logout' if refinery.respond_to?(:logout_path) %>
       </div>
     </div>
   </div>

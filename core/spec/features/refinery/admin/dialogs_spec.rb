@@ -2,7 +2,7 @@ require "spec_helper"
 
 module Refinery
   describe "dialog" do
-    refinery_login_with :refinery_user
+    # refinery_login_with :refinery_user
 
     context "links" do
       it "have iframe src" do

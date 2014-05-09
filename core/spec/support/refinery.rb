@@ -4,7 +4,7 @@ RSpec.configure do |config|
   config.extend Refinery::Testing::ControllerMacros::Authentication, :type => :controller
   config.include Refinery::Testing::ControllerMacros::Methods, :type => :controller
   config.extend Refinery::Testing::FeatureMacros::Authentication, :type => :feature
-  config.include Warden::Test::Helpers
+  config.include Warden::Test::Helpers if defined?(Warden)
 
   # set some config values so that image and resource factories don't fail to create
   config.before do
@@ -13,6 +13,6 @@ RSpec.configure do |config|
   end
 
   config.after do
-    Warden.test_reset!
+    Warden.test_reset! if defined?(Warden)
   end
 end
