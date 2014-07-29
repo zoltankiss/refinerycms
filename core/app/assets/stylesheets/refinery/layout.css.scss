@@ -215,7 +215,7 @@ a:hover {
   color: #000;
   border-bottom: 1px solid #727272;
 }
-#content .visual_editor_box a, #content .ui-tabs a {
+#content .visual_editor_box a, #content .refinery-ui-tabs a {
   border-bottom: 0px none;
 }
 .index #content, .splash #content {
@@ -419,10 +419,10 @@ header {
   }
 }
 #menu {
-  &.ui-sortable a {
+  &.refinery-ui-sortable a {
     cursor: move;
   }
-  &.ui-sortable-disabled a {
+  &.refinery-ui-sortable-disabled a {
     cursor: pointer;
   }
   a {
@@ -1099,7 +1099,7 @@ ul#page_parts_controls li a {
 ul#page_parts_controls img {
   vertical-align: middle;
 }
-#page-tabs.ui-sortable.reordering {
+#page-tabs.refinery-ui-sortable.reordering {
   li {
     cursor: move;
     a {
@@ -1128,7 +1128,7 @@ a#toggle_advanced_options:hover {
 .visual_editor_hideables {
   display: none;
 }
-#content .form-actions, .visual_editor_dialog .form-actions, .ui-dialog .form-actions {
+#content .form-actions, .visual_editor_dialog .form-actions, .refinery-ui-dialog .form-actions {
   position: relative;
   background-color: #F2F2F2;
   border: 1px solid #CCCCCC;
@@ -1141,19 +1141,19 @@ a#toggle_advanced_options:hover {
 .dialog .dialog_area > div > .field label:first-child, .dialog .dialog_area > div > label:first-child {
   margin-top: 0px;
 }
-.visual_editor_dialog .form-actions, #content.form-actions.dialog-form-actions, .ui-dialog .form-actions {
+.visual_editor_dialog .form-actions, #content.form-actions.dialog-form-actions, .refinery-ui-dialog .form-actions {
   margin-top: 16px;
 }
 #content .form-actions .form-actions-left, #content .form-actions .form-actions-right,
   .visual_editor_dialog .form-actions .form-actions-left, .visual_editor_dialog .form-actions .form-actions-right,
-  .ui-dialog .form-actions .form-actions-left, .ui-dialog .form-actions .form-actions-right {
+  .refinery-ui-dialog .form-actions .form-actions-left, .refinery-ui-dialog .form-actions .form-actions-right {
   position: absolute;
   top: 10px;
 }
-#content .form-actions .form-actions-left, .visual_editor_dialog .form-actions .form-actions-left, .ui-dialog .form-actions .form-actions-left {
+#content .form-actions .form-actions-left, .visual_editor_dialog .form-actions .form-actions-left, .refinery-ui-dialog .form-actions .form-actions-left {
   left: 10px;
 }
-#content .form-actions .form-actions-right, .visual_editor_dialog .form-actions .form-actions-right, .ui-dialog .form-actions .form-actions-right {
+#content .form-actions .form-actions-right, .visual_editor_dialog .form-actions .form-actions-right, .refinery-ui-dialog .form-actions .form-actions-right {
   right: 10px;
 }
 #content .form-actions .save-loader {
@@ -1161,14 +1161,14 @@ a#toggle_advanced_options:hover {
   right: -24px;
   top: 4px;
 }
-.visual_editor_dialog .form-actions, .ui-dialog .form-actions {
+.visual_editor_dialog .form-actions, .refinery-ui-dialog .form-actions {
   border: 0px none;
   border-top: 1px solid #E8E8E8;
 }
 #dialog_iframe {
   position: relative;
 }
-#dialog_container #content .form-actions, .ui-dialog .form-actions, .dialog_container .form-actions {
+#dialog_container #content .form-actions, .refinery-ui-dialog .form-actions, .dialog_container .form-actions {
   position: absolute;
   bottom: 0px;
   left: 0px;
@@ -1190,7 +1190,7 @@ body.dialog #content .search_form {
 #existing_image_area {
   padding-top:6px;
 }
-.ui-dialog div.field {
+.refinery-ui-dialog div.field {
   margin: 0px 10px;
 }
 #dialog_container, .dialog_container {
@@ -1298,7 +1298,7 @@ ul.checkboxes li {
 .visual_editor_dialog_paste .field textarea {
   width: 98%;
 }
-.ui-dialog .visual_editor_dialog_paste .field, .ui-dialog .visual_editor_dialog_paste .field textarea {
+.refinery-ui-dialog .visual_editor_dialog_paste .field, .refinery-ui-dialog .visual_editor_dialog_paste .field textarea {
   margin: 0px 0px 45px 0px;
   height: 300px;
 }
@@ -1533,8 +1533,10 @@ a.information:hover {
 #menu > a {
   @include top-rounded(5px);
 }
-.ui-tabs .ui-state-default a {
-  @include top-rounded(5px);
+.refinery-ui-tabs {
+  .ui-state-default a, .refinery-ui-state-default a {
+    @include top-rounded(5px);
+  }
 }
 .tooltip, .tooltip span {
   @include rounded(6px);

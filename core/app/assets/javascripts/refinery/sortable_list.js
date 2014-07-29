@@ -73,7 +73,7 @@ var create_sortable_list = function(options){
         }
 
         , reset_branch_classes: function (ul) {
-            $("li.ui-sortable-helper", this).removeClass("record").removeClass("branch_start").removeClass("branch_end");
+            $("li.refinery-ui-sortable-helper", this).removeClass("record").removeClass("branch_start").removeClass("branch_end");
             $("li", ul).removeClass("branch_start").removeClass("branch_end");
 
             $("> li:first", ul).addClass("branch_start");

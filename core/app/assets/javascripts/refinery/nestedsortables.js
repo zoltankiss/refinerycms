@@ -133,7 +133,7 @@
 			}
 
 			var parentItem = (this.placeholder[0].parentNode.parentNode &&
-							 $(this.placeholder[0].parentNode.parentNode).closest('.ui-sortable').length)
+							 $(this.placeholder[0].parentNode.parentNode).closest('.refinery-ui-sortable').length)
 				       			? $(this.placeholder[0].parentNode.parentNode)
 				       			: null,
 			    level = this._getLevel(this.placeholder),
@@ -373,7 +373,7 @@
 			if (this.options.listType) {
 				var list = item.closest(this.options.listType);
 				while (list && list.length > 0 &&
-                    	!list.is('.ui-sortable')) {
+                    	!list.is('.refinery-ui-sortable')) {
 					level++;
 					list = list.parent().closest(this.options.listType);
 				}
@@ -397,8 +397,8 @@
 
 		_isAllowed: function(parentItem, level, levels) {
 			var o = this.options,
-				isRoot = $(this.domPosition.parent).hasClass('ui-sortable') ? true : false,
-				maxLevels = this.placeholder.closest('.ui-sortable').nestedSortable('option', 'maxLevels'); // this takes into account the maxLevels set to the recipient list
+				isRoot = $(this.domPosition.parent).hasClass('refinery-ui-sortable') ? true : false,
+				maxLevels = this.placeholder.closest('.refinery-ui-sortable').nestedSortable('option', 'maxLevels'); // this takes into account the maxLevels set to the recipient list
 
 			// Is the root protected?
 			// Are we trying to nest under a no-nest?

@@ -1,4 +1,4 @@
-.ui-widget-overlay {
+.refinery-ui-widget-overlay {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -9,7 +9,7 @@
   filter:Alpha(Opacity=75);
   background: #000;
 }
-.ui-dialog {
+.refinery-ui-dialog {
   position: absolute;
   background-color: #fff;
   color: #000;
@@ -23,13 +23,13 @@
     height: 13px;
     margin: -6px 0 0 -104px;
   }
-  .ui-dialog-titlebar {
+  .refinery-ui-dialog-titlebar {
     position: relative;
     width: 100%;
     height: 33px;
     background-color: #22A7F2;
   }
-  .ui-dialog-title {
+  .refinery-ui-dialog-title {
     float: left;
     height: 33px;
     line-height: 33px;
@@ -37,7 +37,7 @@
     padding-left: 10px;
     color: white;
   }
-  .ui-dialog-titlebar-close {
+  .refinery-ui-dialog-titlebar-close {
     background-color: #22A7F2;
     padding-right:0;
     padding-left:0;
@@ -55,7 +55,7 @@
       text-indent:-10000px;
     }
   }
-  .ui-dialog-titlebar-close:hover, .ui-dialog-titlebar-close:focus {
+  .refinery-ui-dialog-titlebar-close:hover, .refinery-ui-dialog-titlebar-close:focus {
     padding: 0;
   }
   iframe {
@@ -67,7 +67,7 @@
   }
 }
 /** Hide the tab without using display:none; This is required to hide flash embeds etc.**/
-.ui-tabs-hide {
+.refinery-ui-tabs-hide {
   display: block !important;
   height: 0 !important;
   width: 0 !important;
@@ -82,27 +82,29 @@
     width: 0px !important;
   }
 }
-.ie7 .ui-tabs-hide {
+.ie7 .refinery-ui-tabs-hide {
   display: none !important !important;
   height: auto !important !important;
   width: auto !important !important;
   position: static;
 }
-.ui-tabs li.ui-state-default {
-  float: left;
-  list-style: none;
-  margin-right: 2px;
-}
-.ui-tabs .ui-state-default a {
-  background-color: #bcbcbc;
-  color: white;
-  padding: 8px 13px;
-  border-bottom: none;
-  display: block;
-  margin-top: 6px;
-}
-.ui-tabs .ui-state-active a {
-  background-color: #808080;
-  padding: 11px 13px;
-  margin-top: 0px;
+.refinery-ui-tabs {
+  li.refinery-ui-state-default, li.ui-state-default {
+    float: left;
+    list-style: none;
+    margin-right: 2px;
+  }
+  .refinery-ui-state-default a, .ui-state-default a {
+    background-color: #bcbcbc;
+    color: white;
+    padding: 8px 13px;
+    border-bottom: none;
+    display: block;
+    margin-top: 6px;
+  }
+  .refinery-ui-state-active a, .ui-state-active a {
+    background-color: #808080;
+    padding: 11px 13px;
+    margin-top: 0px;
+  }
 }

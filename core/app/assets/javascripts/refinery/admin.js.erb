@@ -95,7 +95,7 @@ init_modal_dialogs = function(){
 };
 
 onOpenDialog = function(dialog) {
-  if ($('.ui-dialog').height() < $(window).height()) {
+  if ($('.refinery-ui-dialog').height() < $(window).height()) {
     if(iframed()) {
       $(parent.document.body).addClass('hide-overflow');
     } else {
@@ -535,8 +535,8 @@ var page_options = {
       // set the page tabs up, but ensure that all tabs are shown so that when the visual editor loads it has a proper height.
       page_options.tabs = $('#page-tabs').tabs();
 
-      part_shown = $('#page-tabs .page_part.field').not('.ui-tabs-hide');
-      $('#page-tabs .page_part.field').removeClass('ui-tabs-hide');
+      part_shown = $('#page-tabs .page_part.field').not('.refinery-ui-tabs-hide');
+      $('#page-tabs .page_part.field').removeClass('refinery-ui-tabs-hide');
 
       this.enable_parts = enable_parts;
       this.new_part_url = new_part_url;
@@ -545,7 +545,7 @@ var page_options = {
 
       $(document).ready($.proxy(function(){
         // hide the tabs that are supposed to be hidden.
-        $('#page-tabs .page_part.field').not(this).addClass('ui-tabs-hide');
+        $('#page-tabs .page_part.field').not(this).addClass('refinery-ui-tabs-hide');
       }, part_shown));
 
       if(this.enable_parts){
@@ -633,10 +633,10 @@ var page_options = {
     $('#delete_page_part').click(function(e){
       e.preventDefault();
 
-      var tabName = page_options.tabs.find(".ui-tabs-active a").text();
+      var tabName = page_options.tabs.find(".refinery-ui-tabs-active a").text();
 
       if(confirm("This will remove the content section '" + tabName + "' immediately even if you don't save this page, are you sure?")) {
-        var tabId = page_options.tabs.find('.ui-tabs-active a').attr('id').match(/\d+/)[0] - 1;
+        var tabId = page_options.tabs.find('.refinery-ui-tabs-active a').attr('id').match(/\d+/)[0] - 1;
 
         if($('#page_parts_attributes_' + tabId + '_id').length > 0) {
           $.ajax({
@@ -645,7 +645,7 @@ var page_options = {
           });
         }
 
-        page_options.tabs.find(".ui-tabs-active").remove();
+        page_options.tabs.find(".refinery-ui-tabs-active").remove();
         page_options.tabs.find("#page_part_" + tabName.toLowerCase()).remove();
         page_options.tabs.find("#page_part_new_" + tabId).remove();
         $("[id^=page_parts_attributes_" + tabId + "_]").remove();
@@ -890,10 +890,10 @@ close_dialog = function(e) {
   if (iframed())
   {
     the_body = $(parent.document.body);
-    the_dialog = parent.$('.ui-dialog-content');
+    the_dialog = parent.$('.refinery-ui-dialog-content');
   } else {
     the_body = $(document.body).removeClass('hide-overflow');
-    the_dialog = $('.ui-dialog-content');
+    the_dialog = $('.refinery-ui-dialog-content');
     the_dialog.filter(':data(dialog)').dialog('close');
     the_dialog.remove();
   }

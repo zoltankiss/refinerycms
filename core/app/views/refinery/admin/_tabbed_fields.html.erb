@@ -1,8 +1,8 @@
 <div class='field'>
-  <div id='page-tabs' class='clearfix ui-tabs ui-widget ui-widget-content ui-corner-all'>
+  <div id='page-tabs' class='clearfix refinery-ui-tabs refinery-ui-widget refinery-ui-widget-content refinery-ui-corner-all'>
     <ul id='page_parts'>
       <% tabbed_fields.each_with_index do |field, index| %>
-        <li class="ui-state-default <%= 'ui-state-active' if index == 0 %>">
+        <li class="refinery-ui-state-default <%= 'ui-state-active' if index == 0 %>">
           <%= link_to "#{field.to_s.humanize}", "\##{field}" %>
         </li>
       <% end %>
@@ -10,7 +10,7 @@
          tabs_to_show = (refinery_pages_tabs ||= []).map!(&:to_s)
          pages_tabs.reject!{|t| refinery_pages_tabs.exclude?(t.name.to_s) } unless tabs_to_show.include?('all')
          pages_tabs.each_with_index do |tab, tab_index| %>
-        <li class='ui-state-default' id="custom_<%= tab.name %>_tab">
+        <li class='refinery-ui-state-default' id="custom_<%= tab.name %>_tab">
           <%= link_to tab.name.titleize, "#custom_tab_#{tab_index}" %>
         </li>
       <% end %>
