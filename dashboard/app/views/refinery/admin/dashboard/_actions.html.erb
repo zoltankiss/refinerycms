@@ -28,6 +28,9 @@
                                       :height => 300),
                   :class => "add_icon" %>
     </li>
+    <li>
+      <%= link_to "Make a backup of all this site's data", refinery.admin_dump_database_path %>
+    </li>
   <% end %>
   <%= render 'additional_dashboard_menu_items' %>
 </ul>
