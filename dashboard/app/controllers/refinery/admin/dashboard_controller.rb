@@ -1,4 +1,4 @@
-require 'yaml_db'
+require 'yaml_db_improved'
 
 module Refinery
   module Admin
